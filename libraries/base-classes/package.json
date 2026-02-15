@@ -1,0 +1,64 @@
+{
+  "name": "@iwyfaf-ts-kit/base-classes",
+  "description": "Пакет предоставляет набор абстрактных базовых классов и дефолтную их реализацию, для создания строго типизированных моделей данных, DTO и других доменных объектов в TypeScript проектах.",
+  "version": "1.0.0",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "types": "./dist/types.d.ts"
+    }
+  },
+  "module": "dist/index.esm.js",
+  "types": "dist/types.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "",
+    "",
+    ""
+  ],
+  "license": "ISC",
+  "author": {
+    "name": "iWatchYouFromAfar",
+    "email": "tommy.riley@yandex.ru"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:iwyfaf-ts-kit/base-classes.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "prettier": "npx prettier \"**/*.{vue,ts}\" --check --ignore-unknown",
+    "build": "npm run prettier && vite build --out-dir dist",
+    "test": "vitest --dom --watch=false",
+    "test:watch": "vitest --dom",
+    "pre-release": "npm run build && changelogen --release --no-github --no-commit --no-output --no-tag --prerelease beta --push --publish --publishTag beta",
+    "release": "npm run build && changelogen --release --push --publish --no-github"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^25.0.2",
+    "changelogen": "^0.6.2",
+    "fs-extra": "^11.3.2",
+    "happy-dom": "^20.0.11",
+    "prettier": "^3.7.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.7",
+    "vite-plugin-static-copy": "^3.1.4",
+    "vitest": "^4.0.15"
+  },
+  "engines": {
+    "node": ">=22.22.0"
+  }
+}

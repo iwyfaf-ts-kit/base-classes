@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+
+    /* Linting */
+    "skipLibCheck": true,
+    "strict": true,
+    "allowImportingTsExtensions": false,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "verbatimModuleSyntax": true, // https://www.typescriptlang.org/tsconfig/#verbatimModuleSyntax
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"]
+}
