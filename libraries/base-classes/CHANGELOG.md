@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.2
+
+[compare changes](https://github.com/iwyfaf-ts-kit/base-classes/compare/v1.1.1...v1.1.2)
+
+### 🩹 Fixes
+
+- **BaseDto:** Compare Date values by time in change tracker ([6973fc1](https://github.com/iwyfaf-ts-kit/base-classes/commit/6973fc1))
+
+### ❤️ Contributors
+
+- Iwatchyoufromafar <skip1209@yahoo.com>
+
 ## v1.1.1
 
 [compare changes](https://github.com/iwyfaf-ts-kit/base-classes/compare/v1.1.0...v1.1.1)
