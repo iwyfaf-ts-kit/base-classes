@@ -78,6 +78,15 @@ export class BaseDto<T extends object> {
       return value1 === value2;
     }
 
+    // Сравнение дат по моменту времени: собственных ключей у Date нет
+    if (value1 instanceof Date || value2 instanceof Date) {
+      return (
+        value1 instanceof Date &&
+        value2 instanceof Date &&
+        Object.is(value1.getTime(), value2.getTime())
+      );
+    }
+
     // Сравнение объектов
     if (typeof value1 === 'object' && typeof value2 === 'object') {
       const isArray1 = Array.isArray(value1);
@@ -134,7 +143,9 @@ export class BaseDto<T extends object> {
         current == null ||
         original == null ||
         typeof current !== 'object' ||
-        typeof original !== 'object'
+        typeof original !== 'object' ||
+        current instanceof Date ||
+        original instanceof Date
       ) {
         if (path) {
           dirtyPaths.push(path);

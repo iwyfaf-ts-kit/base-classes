@@ -153,6 +153,64 @@ describe('BaseDto', () => {
         dtoWithNested.data.value = 20;
         expect(dtoWithNested.hasChanged()).toBe(true);
       });
+
+      it('Should detect a Date replaced with another Date.', () => {
+        const dtoWithDate = new (class extends BaseDto<{ date: Date | null }> {
+          public date: Date | null;
+          constructor() {
+            super();
+            this.date = new Date('1989-12-09T00:00:00.000Z');
+            this._initChangeTracker();
+          }
+        })();
+
+        dtoWithDate.date = new Date('1989-12-10T00:00:00.000Z');
+        expect(dtoWithDate.hasChanged()).toBe(true);
+      });
+
+      it('Should not report a change for an equal Date instance.', () => {
+        const dtoWithDate = new (class extends BaseDto<{ date: Date | null }> {
+          public date: Date | null;
+          constructor() {
+            super();
+            this.date = new Date('1989-12-09T00:00:00.000Z');
+            this._initChangeTracker();
+          }
+        })();
+
+        dtoWithDate.date = new Date('1989-12-09T00:00:00.000Z');
+        expect(dtoWithDate.hasChanged()).toBe(false);
+      });
+
+      it('Should detect a Date mutated in place.', () => {
+        const dtoWithDate = new (class extends BaseDto<{ date: Date | null }> {
+          public date: Date | null;
+          constructor() {
+            super();
+            this.date = new Date('1989-12-09T00:00:00.000Z');
+            this._initChangeTracker();
+          }
+        })();
+
+        dtoWithDate.date!.setUTCDate(10);
+        expect(dtoWithDate.hasChanged()).toBe(true);
+      });
+
+      it('Should treat two Invalid Dates as equal.', () => {
+        const dtoWithDate = new (class extends BaseDto<{ date: Date | null }> {
+          public date: Date | null;
+          constructor() {
+            super();
+            this.date = new Date('1989-12-09T00:00:00.000Z');
+            this._initChangeTracker();
+          }
+        })();
+
+        dtoWithDate.date = new Date('invalid');
+        dtoWithDate.commitChanges();
+        dtoWithDate.date = new Date('also invalid');
+        expect(dtoWithDate.hasChanged()).toBe(false);
+      });
     });
 
     describe('getDirtyFields', () => {
@@ -185,6 +243,20 @@ describe('BaseDto', () => {
         const dirtyFields = dtoWithNested.getDirtyFields();
 
         expect(dirtyFields).toEqual(['data.inner.value']);
+      });
+
+      it('Should return the path of a changed Date field.', () => {
+        const dtoWithDate = new (class extends BaseDto<{ date: Date | null }> {
+          public date: Date | null;
+          constructor() {
+            super();
+            this.date = new Date('1989-12-09T00:00:00.000Z');
+            this._initChangeTracker();
+          }
+        })();
+
+        dtoWithDate.date = new Date('1989-12-10T00:00:00.000Z');
+        expect(dtoWithDate.getDirtyFields()).toEqual(['date']);
       });
 
       it('Should return an empty array after changes are reset.', () => {
